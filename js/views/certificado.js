@@ -68,13 +68,13 @@ function renderCertificado() {
         </div>
 
         <div class="text-slate-600 text-sm mt-3 mb-2">ha completado satisfactoriamente el curso</div>
-        <div class="text-lg font-bold text-gms-600 mb-1">${MOCK_COURSE.title}</div>
-        <div class="text-slate-500 text-sm mb-4">${MOCK_COURSE.subtitle}</div>
+        <div class="font-bold mt-0.5 text-gms-600">${course.title}</div>
+        <div class="text-slate-500 text-sm mb-4">${course.subtitle}</div>
 
         <div class="grid grid-cols-3 gap-2 text-center text-xs sm:text-sm mt-4 mb-6">
           <div class="bg-slate-50 rounded-xl p-3">
             <div class="text-slate-400 text-xs">Duración</div>
-            <div class="font-bold text-slate-700">${MOCK_COURSE.duration}</div>
+            <div class="font-bold text-slate-700">${course.duration}</div>
           </div>
           <div class="bg-slate-50 rounded-xl p-3">
             <div class="text-slate-400 text-xs">Fecha</div>
@@ -140,7 +140,7 @@ function renderCertificado() {
 
 function downloadCertificate() {
   const state = AppState.get();
-  AuditLog.record('CERTIFICATE_GENERATED',  { cert_code: state.certCode, course_id: MOCK_COURSE.id });
+  AuditLog.record('CERTIFICATE_GENERATED',  { cert_code: state.certCode, course_id: course.id });
   AuditLog.record('CERTIFICATE_DOWNLOADED', { cert_code: state.certCode, user_id: state.currentUser?.id });
   AppState.completeStep('certificado');
 
@@ -155,7 +155,7 @@ function downloadCertificate() {
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Certificado — ${MOCK_COURSE.title}</title>
+          <title>Certificado — ${getCurrentCourse().title}</title>
           <style>
             body { font-family: 'Segoe UI', sans-serif; padding: 40px; background: white; }
             @media print { body { padding: 0; } }

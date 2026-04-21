@@ -63,7 +63,7 @@ function renderAdminAlumnos() {
   <div class="flex items-center justify-between mb-6">
     <div>
       <h2 class="text-slate-800 font-extrabold text-xl">Listado de Alumnos</h2>
-      <p class="text-slate-500 text-sm">${alumnos.length} alumnos matriculados — Curso: ${MOCK_COURSE.title}</p>
+      <p class="text-slate-500 text-sm">${alumnos.length} alumnos matriculados — Plataforma GMS Aula Virtual</p>
     </div>
   </div>
 

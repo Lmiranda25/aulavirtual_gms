@@ -15,7 +15,7 @@ function renderEncuesta() {
 
   // Registrar inicio
   if (!state._surveyStarted) {
-    AuditLog.record('SURVEY_STARTED', { course_id: MOCK_COURSE.id });
+    AuditLog.record('SURVEY_STARTED', { course_id: getCurrentCourse().id });
     AppState.set({ _surveyStarted: true });
   }
 
@@ -149,12 +149,12 @@ function submitEncuesta() {
     return;
   }
 
-  AuditLog.record('SURVEY_SUBMITTED', { course_id: MOCK_COURSE.id, answers });
+  AuditLog.record('SURVEY_SUBMITTED', { course_id: getCurrentCourse().id, answers });
   AppState.set({ surveySubmitted: true });
   AppState.completeStep('encuesta');
 
   // Habilitar certificado automáticamente
-  const certCode = `${MOCK_COURSE.certificate_code_prefix}-${String(Math.floor(Math.random() * 900) + 100).padStart(4,'0')}`;
+  const certCode = `${getCurrentCourse().certificate_code_prefix}-${String(Math.floor(Math.random() * 900) + 100).padStart(4,'0')}`;
   AppState.set({ certEnabled: true, certCode });
   AuditLog.record('CERTIFICATE_ENABLED', { cert_code: certCode });
 

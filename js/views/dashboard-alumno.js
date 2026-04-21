@@ -3,8 +3,9 @@
 // =============================================
 
 function renderDashboardAlumno() {
-  const state = AppState.get();
-  AuditLog.record('COURSE_ACCESSED', { course_id: MOCK_COURSE.id });
+  const state  = AppState.get();
+  const course = getCurrentCourse();
+  AuditLog.record('COURSE_ACCESSED', { course_id: course.id });
 
   const steps = [
     {
@@ -94,21 +95,21 @@ function renderDashboardAlumno() {
   <div class="bg-gradient-to-r from-gms-800 to-gms-600 rounded-2xl p-4 sm:p-6 mb-6 text-white shadow-lg">
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
-        <div class="text-gms-tealLight text-xs font-semibold uppercase tracking-wider mb-1">Curso en Progreso</div>
-        <h2 class="text-xl font-extrabold leading-tight mb-1">${MOCK_COURSE.title}</h2>
-        <p class="text-slate-300 text-sm">${MOCK_COURSE.subtitle}</p>
+        <div class="text-gms-tealLight text-xs font-semibold uppercase tracking-wider mb-1">${course.category || 'Curso'}</div>
+        <h2 class="text-xl font-extrabold leading-tight mb-1">${course.title}</h2>
+        <p class="text-slate-300 text-sm">${course.subtitle}</p>
         <div class="flex flex-wrap gap-4 mt-3 text-sm">
           <span class="flex items-center gap-1.5 text-slate-300">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
-            ${MOCK_COURSE.instructor}
+            ${course.instructor}
           </span>
           <span class="flex items-center gap-1.5 text-slate-300">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-            ${MOCK_COURSE.date}
+            ${course.date}
           </span>
           <span class="flex items-center gap-1.5 text-slate-300">
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            ${MOCK_COURSE.duration}
+            ${course.duration}
           </span>
         </div>
       </div>
@@ -132,7 +133,7 @@ function renderDashboardAlumno() {
   <!-- Resumen rápido -->
   <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
     <h4 class="text-slate-700 font-bold text-sm mb-3">Descripción del Curso</h4>
-    <p class="text-slate-500 text-sm leading-relaxed">${MOCK_COURSE.description}</p>
+    <p class="text-slate-500 text-sm leading-relaxed">${course.description}</p>
     <div class="mt-4 p-3 bg-amber-50 border border-amber-200 rounded-xl text-sm text-amber-800">
       <strong>⚠ Flujo obligatorio:</strong> Debes completar cada paso en orden. No puedes avanzar sin cumplir el paso anterior.
       La encuesta de satisfacción es requisito para obtener tu certificado.

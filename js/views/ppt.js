@@ -3,8 +3,9 @@
 // =============================================
 
 function renderPPT() {
+  const course = getCurrentCourse();
   const done = AppState.isStepDone('ppt');
-  AuditLog.record('PPT_VIEWED', { file: MOCK_COURSE.ppt_file, version: MOCK_COURSE.ppt_version });
+  AuditLog.record('PPT_VIEWED', { file: course.ppt_file, version: course.ppt_version });
 
   const content = `
   <div class="max-w-2xl mx-auto">
@@ -29,11 +30,11 @@ function renderPPT() {
           <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-3xl">📄</div>
           <div>
             <div class="text-gms-tealLight text-xs font-semibold uppercase tracking-wider">Material Oficial</div>
-            <h3 class="text-white font-bold text-base mt-0.5">${MOCK_COURSE.ppt_file}</h3>
+            <h3 class="text-white font-bold text-base mt-0.5">${course.ppt_file}</h3>
             <div class="flex items-center gap-3 mt-1 text-sm text-slate-300">
-              <span>Versión ${MOCK_COURSE.ppt_version}</span>
+              <span>Versión ${course.ppt_version}</span>
               <span>•</span>
-              <span>Curso ${MOCK_COURSE.title}</span>
+              <span>Curso: ${course.title}</span>
             </div>
           </div>
         </div>
@@ -51,7 +52,7 @@ function renderPPT() {
           </div>
           <div class="bg-slate-50 rounded-xl p-3 border border-slate-100">
             <div class="text-slate-400 text-xs mb-0.5">Versión</div>
-            <div class="text-slate-700 font-semibold">${MOCK_COURSE.ppt_version}</div>
+            <div class="text-slate-700 font-semibold">${course.ppt_version}</div>
           </div>
         </div>
 
@@ -97,12 +98,11 @@ function renderPPT() {
 }
 
 function simulateDownloadPPT() {
-  const user = AppState.get().currentUser;
+  const course = getCurrentCourse();
+  const user   = AppState.get().currentUser;
   AuditLog.record('PPT_DOWNLOADED', {
-    file: MOCK_COURSE.ppt_file,
-    version: MOCK_COURSE.ppt_version,
-    user_id: user.id,
-    course_id: MOCK_COURSE.id,
+    file: course.ppt_file, version: course.ppt_version,
+    user_id: user.id, course_id: course.id,
   });
   AppState.completeStep('ppt');
   showToast('Material descargado y registrado correctamente ✓', 'success');

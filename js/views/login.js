@@ -96,7 +96,7 @@ function handleLogin(e) {
   AuditLog.record('LOGIN_SUCCESS', { browser: navigator.userAgent.substring(0,60) });
 
   showToast(`Bienvenido, ${user.name.split(' ')[0]}`, 'success');
-  Router.go('dashboard-alumno');
+  Router.go('course-selection');
 }
 
 function quickLogin(email, pass) {

@@ -24,7 +24,7 @@ const AuditLog = (() => {
     const entry = {
       event_id:   'evt_' + Date.now() + '_' + Math.random().toString(36).substr(2,6),
       user_id:    state.currentUser?.id || 'anonymous',
-      course_id:  MOCK_COURSE.id,
+      course_id:  (typeof getCurrentCourse !== 'undefined' ? getCurrentCourse()?.id : null) || 'unknown',
       event_type: eventType,
       timestamp:  new Date().toISOString(),
       session_id: state.sessionId || 'sess_unknown',

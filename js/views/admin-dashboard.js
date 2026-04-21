@@ -111,8 +111,8 @@ function renderAdminDashboard() {
       <!-- Curso activo -->
       <div class="mt-4 bg-gms-50 border border-gms-100 rounded-xl p-3 bg-slate-50">
         <div class="text-xs text-slate-400 mb-1">Curso activo</div>
-        <div class="text-slate-700 font-semibold text-xs leading-snug">${MOCK_COURSE.title}</div>
-        <div class="text-slate-400 text-xs mt-1">${MOCK_COURSE.date}</div>
+        <div class="text-slate-700 font-semibold text-xs leading-snug">${MOCK_COURSES[0].title}</div>
+        <div class="text-slate-400 text-xs mt-1">${MOCK_COURSES[0].date}</div>
       </div>
     </div>
   </div>

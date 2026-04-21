@@ -23,7 +23,7 @@ const Router = (() => {
 
     // Rutas de acceso
     const publicRoutes  = ['login', 'admin-login'];
-    const alumnoRoutes  = ['dashboard-alumno', 'ppt', 'zoom', 'examen', 'encuesta', 'certificado'];
+    const alumnoRoutes  = ['course-selection', 'dashboard-alumno', 'ppt', 'zoom', 'examen', 'encuesta', 'certificado'];
     const adminRoutes   = ['admin-dashboard', 'admin-alumnos', 'admin-detalle'];
 
     const view = _currentView || 'login';
@@ -55,6 +55,7 @@ const Router = (() => {
     switch (view) {
       case 'login':            html = renderLogin();                         break;
       case 'admin-login':      html = renderAdminLogin();                   break;
+      case 'course-selection': html = renderCourseSelection();              break;
       case 'dashboard-alumno': html = renderDashboardAlumno();              break;
       case 'ppt':              html = renderPPT();                          break;
       case 'zoom':             html = renderZoom();                         break;
@@ -76,7 +77,7 @@ const Router = (() => {
     if (state.currentUser?.role === 'admin') {
       go('admin-dashboard');
     } else if (state.currentUser?.role === 'alumno') {
-      go('dashboard-alumno');
+      go('course-selection');
     } else {
       go('login');
     }

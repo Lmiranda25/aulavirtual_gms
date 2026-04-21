@@ -3,6 +3,7 @@
 // =============================================
 
 function renderZoom() {
+  const course = getCurrentCourse();
   if (!AppState.isStepAvailable('zoom') && !AppState.isStepDone('zoom')) {
     return renderAlumnoLayout('zoom', _blockedStep('Primero debes descargar el material PPT para acceder a la clase.'), 'Clase en Vivo');
   }
@@ -32,8 +33,8 @@ function renderZoom() {
           <div class="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center text-3xl">🎥</div>
           <div>
             <div class="text-blue-200 text-xs font-semibold uppercase tracking-wider">Clase en Vivo</div>
-            <h3 class="font-bold text-base mt-0.5">${MOCK_COURSE.title}</h3>
-            <div class="mt-1 text-blue-200 text-sm">${MOCK_COURSE.date}</div>
+            <h3 class="font-bold text-base mt-0.5">${course.title}</h3>
+            <div class="mt-1 text-blue-200 text-sm">${course.date}</div>
           </div>
         </div>
         <!-- Status en vivo -->
@@ -77,19 +78,19 @@ function renderZoom() {
       <div class="grid grid-cols-2 gap-3 text-sm">
         <div class="bg-slate-50 rounded-xl p-3">
           <div class="text-slate-400 text-xs mb-0.5">Instructor</div>
-          <div class="text-slate-700 font-semibold">${MOCK_COURSE.instructor}</div>
+        <div class="text-slate-700 font-semibold">${course.instructor}</div>
         </div>
-        <div class="bg-slate-50 rounded-xl p-3">
-          <div class="text-slate-400 text-xs mb-0.5">Duración</div>
-          <div class="text-slate-700 font-semibold">${MOCK_COURSE.duration}</div>
-        </div>
-        <div class="bg-slate-50 rounded-xl p-3">
-          <div class="text-slate-400 text-xs mb-0.5">Modalidad</div>
-          <div class="text-slate-700 font-semibold">En Vivo (Zoom)</div>
-        </div>
-        <div class="bg-slate-50 rounded-xl p-3">
-          <div class="text-slate-400 text-xs mb-0.5">Fecha</div>
-          <div class="text-slate-700 font-semibold">${MOCK_COURSE.date}</div>
+          <div class="bg-slate-50 rounded-xl p-3">
+            <div class="text-slate-400 text-xs mb-0.5">Duración</div>
+            <div class="text-slate-700 font-semibold">${course.duration}</div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-3">
+            <div class="text-slate-400 text-xs mb-0.5">Modalidad</div>
+            <div class="text-slate-700 font-semibold">En Vivo (Zoom)</div>
+          </div>
+          <div class="bg-slate-50 rounded-xl p-3">
+            <div class="text-slate-400 text-xs mb-0.5">Fecha</div>
+            <div class="text-slate-700 font-semibold">${course.date}</div>
         </div>
       </div>
     </div>
@@ -106,8 +107,9 @@ function renderZoom() {
 }
 
 function simulateZoomAccess() {
-  AuditLog.record('ZOOM_BUTTON_CLICKED', { zoom_url: MOCK_COURSE.zoom_url });
-  AuditLog.record('LIVE_CLASS_ACCESS_ATTEMPTED', { course_id: MOCK_COURSE.id });
+  const course = getCurrentCourse();
+  AuditLog.record('ZOOM_BUTTON_CLICKED',         { zoom_url: course.zoom_url });
+  AuditLog.record('LIVE_CLASS_ACCESS_ATTEMPTED', { course_id: course.id });
   AppState.completeStep('zoom');
   showToast('Acceso a clase registrado. Zoom abrirá en una nueva pestaña.', 'info');
   // En producción: window.open(MOCK_COURSE.zoom_url, '_blank');

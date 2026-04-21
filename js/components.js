@@ -87,7 +87,8 @@ function renderTopbar(title = '') {
 
 // ── Sidebar del alumno ───────────────────────
 function renderSidebar(activeView) {
-  const state = AppState.get();
+  const state  = AppState.get();
+  const course = getCurrentCourse();
 
   const steps = [
     { key: 'dashboard', label: 'Mi Curso', icon: '🏠', view: 'dashboard-alumno', alwaysAvailable: true },
@@ -145,10 +146,15 @@ function renderSidebar(activeView) {
     </button>
     <!-- Curso info -->
     <div class="p-4 border-b border-gms-700/60 mt-2">
+      <!-- Volver a mis cursos -->
+      <button onclick="closeSidebar(); Router.go('course-selection')" class="flex items-center gap-1.5 text-gms-tealLight hover:text-white text-xs font-semibold mb-3 transition-colors">
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        Mis Cursos
+      </button>
       <div class="bg-gms-900/60 rounded-xl p-3">
         <div class="text-xs text-gms-tealLight font-semibold uppercase tracking-wider mb-1">Curso activo</div>
-        <div class="text-white text-sm font-semibold leading-snug">${MOCK_COURSE.title}</div>
-        <div class="text-slate-400 text-xs mt-1">${MOCK_COURSE.date}</div>
+        <div class="text-white text-sm font-semibold leading-snug">${course.title}</div>
+        <div class="text-slate-400 text-xs mt-1">${course.date}</div>
         <!-- Progress -->
         <div class="mt-3">
           <div class="flex justify-between text-xs text-slate-400 mb-1">

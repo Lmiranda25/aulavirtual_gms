@@ -15,11 +15,11 @@ function renderExamen() {
 
   // Registrar inicio si no se había iniciado
   if (!state._examStarted) {
-    AuditLog.record('EXAM_STARTED', { attempt: 1, course_id: MOCK_COURSE.id });
+    AuditLog.record('EXAM_STARTED', { attempt: 1, course_id: getCurrentCourse().id });
     AppState.set({ _examStarted: true });
   }
 
-  const questionsHtml = MOCK_EXAM_QUESTIONS.map((q, idx) => {
+  const questionsHtml = getExamQuestions().map((q, idx) => {
     const saved = state.examAnswers[q.id];
     const optionsHtml = q.options.map((opt, oi) => `
     <div class="exam-option">
@@ -46,7 +46,7 @@ function renderExamen() {
   }).join('');
 
   const answered = Object.keys(state.examAnswers || {}).length;
-  const total    = MOCK_EXAM_QUESTIONS.length;
+  const total    = getExamQuestions().length;
 
   const content = `
   <div class="max-w-2xl mx-auto">
@@ -68,7 +68,7 @@ function renderExamen() {
     <div class="bg-gms-800 text-white rounded-2xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-3">
       <div>
         <div class="text-gms-tealLight text-xs font-semibold uppercase">Examen Oficial</div>
-        <div class="font-bold mt-0.5">${MOCK_COURSE.title}</div>
+        <div class="font-bold mt-0.5">${getCurrentCourse().title}</div>
         <div class="text-slate-400 text-sm mt-1">${total} preguntas — Opción múltiple</div>
       </div>
       <div class="text-center">
@@ -111,9 +111,10 @@ function saveExamAnswer(questionId, optionIndex) {
 }
 
 function submitExamen() {
-  const state = AppState.get();
+  const state   = AppState.get();
   const answers = state.examAnswers || {};
-  const total = MOCK_EXAM_QUESTIONS.length;
+  const questions = getExamQuestions();
+  const total   = questions.length;
   const answered = Object.keys(answers).length;
 
   if (answered < total) {
@@ -121,9 +122,8 @@ function submitExamen() {
     return;
   }
 
-  // Calcular puntaje
   let correct = 0;
-  MOCK_EXAM_QUESTIONS.forEach(q => {
+  questions.forEach(q => {
     if (answers[q.id] === q.correct) correct++;
   });
 
@@ -143,7 +143,7 @@ function submitExamen() {
 function _renderExamenResultado(state) {
   const score   = state.examScore ?? 0;
   const correct = state.examCorrect ?? 0;
-  const total   = MOCK_EXAM_QUESTIONS.length;
+  const total   = getExamQuestions().length;
   const passed  = score >= 60;
 
   const content = `
@@ -159,7 +159,7 @@ function _renderExamenResultado(state) {
     <!-- Detalle respuestas -->
     <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-5 mb-5">
       <h4 class="font-bold text-slate-700 text-sm mb-4">Revisión de respuestas</h4>
-      ${MOCK_EXAM_QUESTIONS.map((q, i) => {
+      ${getExamQuestions().map((q, i) => {
         const userAnswer = state.examAnswers[q.id];
         const isCorrect  = userAnswer === q.correct;
         return `

@@ -8,10 +8,11 @@ const AppState = (() => {
   const _defaults = {
     currentUser: null,
     sessionId: null,
-    // Flujo del alumno: índice del paso actual (0-based)
-    // 0=login 1=ppt 2=zoom 3=exam 4=encuesta 5=certificado
+    selectedCourse: null,
+    progressByCourse: {},
+    // Progreso del curso activo (se carga al seleccionar)
     currentStep: 0,
-    stepsCompleted: [],   // array de step keys completados
+    stepsCompleted: [],
     examAnswers: {},
     examScore: null,
     examSubmitted: false,
@@ -19,6 +20,8 @@ const AppState = (() => {
     surveySubmitted: false,
     certCode: null,
     certEnabled: false,
+    _examStarted: false,
+    _surveyStarted: false,
   };
 
   function _load() {
@@ -47,6 +50,34 @@ const AppState = (() => {
     AuditLog.clear();
   }
 
+  // ── Selección de curso con persistencia de progreso por curso ──
+  const _COURSE_PROGRESS_KEYS = [
+    'stepsCompleted','examAnswers','examScore','examSubmitted',
+    'surveyAnswers','surveySubmitted','certCode','certEnabled',
+    '_examStarted','_surveyStarted',
+  ];
+
+  function selectCourse(course) {
+    // Guardar progreso del curso actual antes de cambiar
+    if (_state.selectedCourse) {
+      const prev = {};
+      _COURSE_PROGRESS_KEYS.forEach(k => { prev[k] = _state[k]; });
+      const byC = { ...(_state.progressByCourse || {}) };
+      byC[_state.selectedCourse.id] = prev;
+      _state = { ..._state, progressByCourse: byC };
+    }
+    // Cargar progreso guardado del nuevo curso (o defaults limpios)
+    const byC = _state.progressByCourse || {};
+    const saved = byC[course.id] || {};
+    const fresh = {
+      stepsCompleted: [], examAnswers: {}, examScore: null,
+      examSubmitted: false, surveyAnswers: {}, surveySubmitted: false,
+      certCode: null, certEnabled: false, _examStarted: false, _surveyStarted: false,
+    };
+    _state = { ..._state, selectedCourse: course, ...fresh, ...saved };
+    _save(_state);
+  }
+
   // Paso completado: key es 'ppt', 'zoom', 'exam', 'encuesta', 'certificado'
   function completeStep(stepKey) {
     if (!_state.stepsCompleted.includes(stepKey)) {
@@ -70,5 +101,5 @@ const AppState = (() => {
     return isStepDone(prev);
   }
 
-  return { get, set, reset, completeStep, isStepDone, isStepAvailable, STEP_ORDER };
+  return { get, set, reset, selectCourse, completeStep, isStepDone, isStepAvailable, STEP_ORDER };
 })();
