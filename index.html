@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GMS Consulting — Aula Virtual</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            gms: {
+              900: '#0a1628',
+              800: '#0d1f3c',
+              700: '#112952',
+              600: '#1a3a6b',
+              500: '#1e4d8c',
+              400: '#2563a8',
+              teal: '#0e9f8e',
+              tealDark: '#0b7d6f',
+              tealLight: '#14c4b0',
+              accent: '#f59e0b',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased">
+
+  <!-- App Root -->
+  <div id="app"></div>
+
+  <!-- Scripts -->
+  <script src="js/mock-data.js"></script>
+  <script src="js/audit-log.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/components.js"></script>
+  <script src="js/views/login.js"></script>
+  <script src="js/views/dashboard-alumno.js"></script>
+  <script src="js/views/ppt.js"></script>
+  <script src="js/views/zoom.js"></script>
+  <script src="js/views/examen.js"></script>
+  <script src="js/views/encuesta.js"></script>
+  <script src="js/views/certificado.js"></script>
+  <script src="js/views/admin-login.js"></script>
+  <script src="js/views/admin-dashboard.js"></script>
+  <script src="js/views/admin-alumnos.js"></script>
+  <script src="js/views/admin-detalle.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

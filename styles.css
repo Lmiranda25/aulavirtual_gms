@@ -1,0 +1,159 @@
+/* =============================================
+   GMS Aula Virtual — Global Styles
+   ============================================= */
+
+/* Scrollbar personalizado */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
+
+/* Transiciones globales */
+* { box-sizing: border-box; }
+
+/* Badge estados */
+.badge-pendiente    { background: #f1f5f9; color: #64748b; }
+.badge-disponible   { background: #dbeafe; color: #1d4ed8; }
+.badge-en-proceso   { background: #fef9c3; color: #92400e; }
+.badge-completado   { background: #dcfce7; color: #15803d; }
+.badge-bloqueado    { background: #fee2e2; color: #b91c1c; }
+
+/* Step states en sidebar */
+.step-pending   { border-left: 3px solid #cbd5e1; }
+.step-available { border-left: 3px solid #3b82f6; }
+.step-active    { border-left: 3px solid #f59e0b; background: rgba(245,158,11,0.06); }
+.step-done      { border-left: 3px solid #22c55e; }
+.step-locked    { border-left: 3px solid #ef4444; opacity: 0.5; cursor: not-allowed; }
+
+/* Animaciones */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in { animation: fadeIn 0.3s ease both; }
+
+@keyframes pulse-gms {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(14,159,142,0.4); }
+  50%       { box-shadow: 0 0 0 8px rgba(14,159,142,0); }
+}
+.pulse-teal { animation: pulse-gms 2s infinite; }
+
+/* Progress bar */
+.progress-bar-fill {
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(10,22,40,0.12);
+}
+
+/* Timeline dot */
+.timeline-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+/* Exam question */
+.exam-option input:checked + label {
+  border-color: #0e9f8e;
+  background: #f0fdfb;
+  color: #0b7d6f;
+  font-weight: 600;
+}
+.exam-option label {
+  transition: all 0.15s ease;
+}
+.exam-option label:hover {
+  border-color: #0e9f8e;
+  background: #f0fdfb;
+}
+
+/* Sidebar nav link active */
+.nav-link-active {
+  background: rgba(14,159,142,0.12);
+  color: #0e9f8e;
+  font-weight: 600;
+}
+
+/* Login background pattern */
+.login-bg {
+  background: linear-gradient(135deg, #0a1628 0%, #0d1f3c 40%, #0e4a5c 100%);
+}
+
+/* Table row hover */
+tbody tr:hover { background: #f8fafc; }
+
+/* Notification toast */
+#toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.toast {
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: fadeIn 0.3s ease both;
+  min-width: 240px;
+}
+.toast-success { background: #0e9f8e; }
+.toast-info    { background: #1a3a6b; }
+.toast-warning { background: #d97706; }
+.toast-error   { background: #dc2626; }
+
+/* =============================================
+   Responsive Sidebar (mobile-first)
+   ============================================= */
+.sidebar-mobile {
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+.sidebar-mobile.is-open {
+  transform: translateX(0);
+}
+@media (min-width: 1024px) {
+  .sidebar-mobile { transform: translateX(0) !important; }
+}
+
+/* Overlay oscuro al abrir sidebar en móvil */
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 25;
+  display: none;
+}
+.sidebar-overlay.is-visible { display: block; }
+@media (min-width: 1024px) {
+  .sidebar-overlay { display: none !important; }
+}
+
+/* Margen del contenido principal */
+.main-content-shift {
+  margin-left: 0;
+}
+@media (min-width: 1024px) {
+  .main-content-shift { margin-left: 16rem; /* 256px = w-64 */ }
+}
+
+/* Tabla admin scroll en móvil */
+.admin-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+/* Ajuste de cards en pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .kpi-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
