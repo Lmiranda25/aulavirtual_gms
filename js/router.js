@@ -70,6 +70,10 @@ const Router = (() => {
 
     app.innerHTML = html;
     window.scrollTo(0, 0);
+    if (typeof window._viewPostRender === 'function') {
+      const fn = window._viewPostRender; window._viewPostRender = null;
+      setTimeout(fn, 50);
+    }
   }
 
   function init() {

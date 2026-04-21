@@ -139,7 +139,8 @@ function renderCertificado() {
 }
 
 function downloadCertificate() {
-  const state = AppState.get();
+  const state  = AppState.get();
+  const course = getCurrentCourse();
   AuditLog.record('CERTIFICATE_GENERATED',  { cert_code: state.certCode, course_id: course.id });
   AuditLog.record('CERTIFICATE_DOWNLOADED', { cert_code: state.certCode, user_id: state.currentUser?.id });
   AppState.completeStep('certificado');

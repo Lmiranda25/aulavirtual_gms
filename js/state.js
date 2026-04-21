@@ -16,6 +16,7 @@ const AppState = (() => {
     examAnswers: {},
     examScore: null,
     examSubmitted: false,
+    examStartTimestamp: null,
     surveyAnswers: {},
     surveySubmitted: false,
     certCode: null,
@@ -53,6 +54,7 @@ const AppState = (() => {
   // ── Selección de curso con persistencia de progreso por curso ──
   const _COURSE_PROGRESS_KEYS = [
     'stepsCompleted','examAnswers','examScore','examSubmitted',
+    'examStartTimestamp',
     'surveyAnswers','surveySubmitted','certCode','certEnabled',
     '_examStarted','_surveyStarted',
   ];
@@ -71,7 +73,8 @@ const AppState = (() => {
     const saved = byC[course.id] || {};
     const fresh = {
       stepsCompleted: [], examAnswers: {}, examScore: null,
-      examSubmitted: false, surveyAnswers: {}, surveySubmitted: false,
+      examSubmitted: false, examStartTimestamp: null,
+      surveyAnswers: {}, surveySubmitted: false,
       certCode: null, certEnabled: false, _examStarted: false, _surveyStarted: false,
     };
     _state = { ..._state, selectedCourse: course, ...fresh, ...saved };

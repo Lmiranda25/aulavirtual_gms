@@ -15,8 +15,9 @@ function renderExamen() {
 
   // Registrar inicio si no se había iniciado
   if (!state._examStarted) {
-    AuditLog.record('EXAM_STARTED', { attempt: 1, course_id: getCurrentCourse().id });
-    AppState.set({ _examStarted: true });
+    const ts = Date.now();
+    AuditLog.record('EXAM_STARTED', { attempt: 1, course_id: getCurrentCourse().id, unix_ts: Math.floor(ts/1000) });
+    AppState.set({ _examStarted: true, examStartTimestamp: ts });
   }
 
   const questionsHtml = getExamQuestions().map((q, idx) => {
@@ -71,9 +72,15 @@ function renderExamen() {
         <div class="font-bold mt-0.5">${getCurrentCourse().title}</div>
         <div class="text-slate-400 text-sm mt-1">${total} preguntas — Opción múltiple</div>
       </div>
-      <div class="text-center">
-        <div class="text-2xl font-extrabold text-gms-tealLight">${answered}/${total}</div>
-        <div class="text-slate-400 text-xs">respondidas</div>
+      <div class="flex items-center gap-4">
+        <div class="text-center">
+          <div id="exam-timer" class="text-lg font-mono font-extrabold text-amber-300">⏱ 00:00</div>
+          <div class="text-slate-400 text-xs">tiempo</div>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-extrabold text-gms-tealLight">${answered}/${total}</div>
+          <div class="text-slate-400 text-xs">respondidas</div>
+        </div>
       </div>
     </div>
 
@@ -97,6 +104,7 @@ function renderExamen() {
     </div>
   </div>`;
 
+  window._viewPostRender = startExamTimer;
   return renderAlumnoLayout('examen', content, 'Examen');
 }
 
@@ -111,10 +119,10 @@ function saveExamAnswer(questionId, optionIndex) {
 }
 
 function submitExamen() {
-  const state   = AppState.get();
-  const answers = state.examAnswers || {};
+  const state    = AppState.get();
+  const answers  = state.examAnswers || {};
   const questions = getExamQuestions();
-  const total   = questions.length;
+  const total    = questions.length;
   const answered = Object.keys(answers).length;
 
   if (answered < total) {
@@ -122,22 +130,59 @@ function submitExamen() {
     return;
   }
 
+  // Detener cronómetro y calcular duración
+  if (window._examTimerInterval) { clearInterval(window._examTimerInterval); window._examTimerInterval = null; }
+  const examStart = state.examStartTimestamp;
+  const duration_seconds = examStart ? Math.round((Date.now() - examStart) / 1000) : null;
+  const duration_display = duration_seconds ? _fmtDurationLong(duration_seconds) : '—';
+
   let correct = 0;
   questions.forEach(q => {
     if (answers[q.id] === q.correct) correct++;
   });
 
-  const score = Math.round((correct / total) * 100);
+  const score   = Math.round((correct / total) * 100);
+  const unix_ts = Math.floor(Date.now() / 1000);
 
-  AuditLog.record('EXAM_SUBMITTED', { attempt: 1 });
-  AuditLog.record('EXAM_FINISHED',  { score, total, correct, duration_min: 10 });
-  AuditLog.record('EXAM_GRADED',    { score, status: score >= 60 ? 'APROBADO' : 'DESAPROBADO' });
+  AuditLog.record('EXAM_SUBMITTED', { attempt: 1, duration_seconds, duration_display, unix_ts });
+  AuditLog.record('EXAM_FINISHED',  { score, total, correct, duration_seconds, duration_display });
+  AuditLog.record('EXAM_GRADED',    { score, status: score >= 60 ? 'APROBADO' : 'DESAPROBADO', passing_score: 60 });
 
   AppState.set({ examSubmitted: true, examScore: score, examCorrect: correct });
   AppState.completeStep('exam');
 
   showToast('Examen enviado. Calculando resultado...', 'info');
   setTimeout(() => Router.go('examen'), 600);
+}
+
+function startExamTimer() {
+  const el    = document.getElementById('exam-timer');
+  if (!el) return;
+  const start = AppState.get().examStartTimestamp;
+  if (!start) return;
+  if (window._examTimerInterval) clearInterval(window._examTimerInterval);
+  const update = () => {
+    const secs = Math.floor((Date.now() - start) / 1000);
+    el.textContent = '⏱ ' + _fmtDuration(secs);
+  };
+  update();
+  window._examTimerInterval = setInterval(update, 1000);
+}
+
+function _fmtDuration(secs) {
+  const m = Math.floor(secs / 60);
+  const s = secs % 60;
+  return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+function _fmtDurationLong(secs) {
+  if (!secs && secs !== 0) return '—';
+  const h = Math.floor(secs / 3600);
+  const m = Math.floor((secs % 3600) / 60);
+  const s = secs % 60;
+  if (h > 0) return `${h}h ${m}m ${s}s`;
+  if (m > 0) return `${m}m ${s}s`;
+  return `${s}s`;
 }
 
 function _renderExamenResultado(state) {

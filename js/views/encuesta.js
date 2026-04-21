@@ -149,17 +149,21 @@ function submitEncuesta() {
     return;
   }
 
-  AuditLog.record('SURVEY_SUBMITTED', { course_id: getCurrentCourse().id, answers });
-  AppState.set({ surveySubmitted: true });
-  AppState.completeStep('encuesta');
+  try {
+    AuditLog.record('SURVEY_SUBMITTED', { course_id: getCurrentCourse().id });
+    AppState.set({ surveySubmitted: true });
+    AppState.completeStep('encuesta');
 
-  // Habilitar certificado automáticamente
-  const certCode = `${getCurrentCourse().certificate_code_prefix}-${String(Math.floor(Math.random() * 900) + 100).padStart(4,'0')}`;
-  AppState.set({ certEnabled: true, certCode });
-  AuditLog.record('CERTIFICATE_ENABLED', { cert_code: certCode });
+    const certCode = `${getCurrentCourse().certificate_code_prefix}-${String(Math.floor(Math.random() * 900) + 100).padStart(4,'0')}`;
+    AppState.set({ certEnabled: true, certCode });
+    AuditLog.record('CERTIFICATE_ENABLED', { cert_code: certCode });
 
-  showToast('Encuesta enviada. ¡Tu certificado está disponible!', 'success');
-  setTimeout(() => Router.go('certificado'), 800);
+    showToast('¡Encuesta enviada! Tu certificado está disponible.', 'success');
+    Router.go('certificado');
+  } catch (err) {
+    console.error('[GMS] Error en submitEncuesta:', err);
+    showToast('Error al procesar la encuesta. Intenta de nuevo.', 'error');
+  }
 }
 
 function _renderEncuestaCompletada() {
