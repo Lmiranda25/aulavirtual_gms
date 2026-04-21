@@ -157,13 +157,14 @@ function submitEncuesta() {
     const certCode = `${getCurrentCourse().certificate_code_prefix}-${String(Math.floor(Math.random() * 900) + 100).padStart(4,'0')}`;
     AppState.set({ certEnabled: true, certCode });
     AuditLog.record('CERTIFICATE_ENABLED', { cert_code: certCode });
-
-    showToast('¡Encuesta enviada! Tu certificado está disponible.', 'success');
-    Router.go('certificado');
   } catch (err) {
     console.error('[GMS] Error en submitEncuesta:', err);
     showToast('Error al procesar la encuesta. Intenta de nuevo.', 'error');
+    return;
   }
+
+  showToast('¡Encuesta enviada! Tu certificado está disponible.', 'success');
+  Router.go('certificado');
 }
 
 function _renderEncuestaCompletada() {

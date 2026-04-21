@@ -15,6 +15,7 @@ function renderCertificado() {
   }
 
   const user     = state.currentUser;
+  const course   = getCurrentCourse();
   const certCode = state.certCode || 'GMS-APN-2026-0001';
   const today    = new Date().toLocaleDateString('es-PE', { day: '2-digit', month: 'long', year: 'numeric' });
   const isDone   = AppState.isStepDone('certificado');
