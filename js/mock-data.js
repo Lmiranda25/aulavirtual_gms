@@ -204,7 +204,32 @@ const MOCK_SURVEY_QUESTIONS = [
 
 // Historial de eventos mock para admin (por alumno)
 const MOCK_AUDIT_EVENTS = {
-  // u002 — alumno que completó todo el flujo (22 eventos)
+  // u001 — Carlos Mendoza Torres — flujo completo, nota 100 (22 eventos)
+  u001: [
+    { event_type: 'LOGIN_SUCCESS',               timestamp: '2026-04-25T07:45:20', unix_ts: 1777103120, ip: '200.48.33.12', metadata: { browser: 'Edge 122', device: 'Desktop', os: 'Windows 10' } },
+    { event_type: 'COURSE_ACCESSED',             timestamp: '2026-04-25T07:45:55', unix_ts: 1777103155, ip: '200.48.33.12', metadata: { course_id: 'c001', course_title: 'Operaciones Portuarias Básicas' } },
+    { event_type: 'PPT_VIEWED',                  timestamp: '2026-04-25T07:47:30', unix_ts: 1777103250, ip: '200.48.33.12', metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx', version: 'v3.0' } },
+    { event_type: 'PPT_DOWNLOADED',              timestamp: '2026-04-25T07:48:05', unix_ts: 1777103285, ip: '200.48.33.12', metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx', version: 'v3.0' } },
+    { event_type: 'ZOOM_BUTTON_CLICKED',         timestamp: '2026-04-25T09:00:52', unix_ts: 1777107652, ip: '200.48.33.12', metadata: { zoom_url: 'https://zoom.us/j/123456789', meeting_id: '123456789' } },
+    { event_type: 'LIVE_CLASS_ACCESS_ATTEMPTED', timestamp: '2026-04-25T09:00:53', unix_ts: 1777107653, ip: '200.48.33.12', metadata: { meeting_id: '123456789' } },
+    { event_type: 'ZOOM_SESSION_JOINED',         timestamp: '2026-04-25T09:00:57', unix_ts: 1777107657, ip: '200.48.33.12', metadata: { meeting_id: '123456789', participant: 'Carlos Mendoza Torres', host: 'Ing. Jorge Huamán Quispe' } },
+    { event_type: 'ZOOM_SESSION_LEFT',           timestamp: '2026-04-25T12:57:22', unix_ts: 1777121842, ip: '200.48.33.12', metadata: { meeting_id: '123456789', duration_seconds: 14185, duration_display: '3h 56m 25s' } },
+    { event_type: 'EXAM_STARTED',                timestamp: '2026-04-25T13:01:10', unix_ts: 1777122070, ip: '200.48.33.12', metadata: { attempt: 1, time_since_zoom_end_sec: 228 } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T13:02:05', unix_ts: 1777122125, ip: '200.48.33.12', metadata: { question: 'q1', answer: 1, answer_text: 'APN (Autoridad Portuaria Nacional)' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T13:03:15', unix_ts: 1777122195, ip: '200.48.33.12', metadata: { question: 'q2', answer: 1, answer_text: 'Ley N° 27943 — Ley del Sistema Portuario Nacional' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T13:04:30', unix_ts: 1777122270, ip: '200.48.33.12', metadata: { question: 'q3', answer: 2, answer_text: 'Casco, chaleco reflectivo, botas de seguridad y guantes' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T13:05:20', unix_ts: 1777122320, ip: '200.48.33.12', metadata: { question: 'q4', answer: 1, answer_text: 'Activar plan de contingencia, aislar zona y notificar al supervisor' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T13:06:40', unix_ts: 1777122400, ip: '200.48.33.12', metadata: { question: 'q5', answer: 0, answer_text: 'Permiso Especial de Trabajo de Alto Riesgo' } },
+    { event_type: 'EXAM_SUBMITTED',              timestamp: '2026-04-25T13:07:25', unix_ts: 1777122445, ip: '200.48.33.12', metadata: { attempt: 1, duration_seconds: 375, duration_display: '6m 15s' } },
+    { event_type: 'EXAM_FINISHED',               timestamp: '2026-04-25T13:07:26', unix_ts: 1777122446, ip: '200.48.33.12', metadata: { score: 100, total: 5, correct: 5, duration_seconds: 375, duration_display: '6m 15s' } },
+    { event_type: 'EXAM_GRADED',                 timestamp: '2026-04-25T13:07:27', unix_ts: 1777122447, ip: '200.48.33.12', metadata: { score: 100, status: 'APROBADO', passing_score: 60 } },
+    { event_type: 'SURVEY_STARTED',              timestamp: '2026-04-25T13:08:02', unix_ts: 1777122482, ip: '200.48.33.12', metadata: { time_since_exam_end_sec: 35 } },
+    { event_type: 'SURVEY_SUBMITTED',            timestamp: '2026-04-25T13:11:32', unix_ts: 1777122692, ip: '200.48.33.12', metadata: { duration_seconds: 210, duration_display: '3m 30s', ratings: { contenido: 5, instructor: 5, plataforma: 5 }, recomendaria: 'si' } },
+    { event_type: 'CERTIFICATE_ENABLED',         timestamp: '2026-04-25T13:11:33', unix_ts: 1777122693, ip: '200.48.33.12', metadata: { cert_code: 'GMS-APN-2026-0041' } },
+    { event_type: 'CERTIFICATE_GENERATED',       timestamp: '2026-04-25T13:12:10', unix_ts: 1777122730, ip: '200.48.33.12', metadata: { cert_code: 'GMS-APN-2026-0041', format: 'PDF' } },
+    { event_type: 'CERTIFICATE_DOWNLOADED',      timestamp: '2026-04-25T13:12:13', unix_ts: 1777122733, ip: '200.48.33.12', metadata: { cert_code: 'GMS-APN-2026-0041', file_name: 'Certificado_CarlosMendoza_GMS-APN-2026-0041.pdf' } },
+  ],
+  // u002 — Ana Lucía Paredes — flujo completo, nota 80 (22 eventos)
   u002: [
     { event_type: 'LOGIN_SUCCESS',               timestamp: '2026-04-25T08:02:11', unix_ts: 1777104131, ip: '190.40.12.88', metadata: { browser: 'Chrome 124', device: 'Desktop', os: 'Windows 11' } },
     { event_type: 'COURSE_ACCESSED',             timestamp: '2026-04-25T08:02:45', unix_ts: 1777104165, ip: '190.40.12.88', metadata: { course_id: 'c001', course_title: 'Operaciones Portuarias Básicas' } },
@@ -229,13 +254,28 @@ const MOCK_AUDIT_EVENTS = {
     { event_type: 'CERTIFICATE_GENERATED',       timestamp: '2026-04-25T13:20:05', unix_ts: 1777123205, ip: '190.40.12.88', metadata: { cert_code: 'GMS-APN-2026-0042', format: 'PDF' } },
     { event_type: 'CERTIFICATE_DOWNLOADED',      timestamp: '2026-04-25T13:20:08', unix_ts: 1777123208, ip: '190.40.12.88', metadata: { cert_code: 'GMS-APN-2026-0042', file_name: 'Certificado_AnaParedes_GMS-APN-2026-0042.pdf' } },
   ],
-  // u003 — alumno que solo llegó hasta Zoom (5 eventos)
+  // u003 — Roberto Silva Vega — zoom completo, examen iniciado pero abandonado (13 eventos)
   u003: [
-    { event_type: 'LOGIN_SUCCESS',       timestamp: '2026-04-25T08:30:00', unix_ts: 1777105800, ip: '192.168.1.5', metadata: { browser: 'Firefox 125', device: 'Laptop', os: 'macOS 14' } },
-    { event_type: 'COURSE_ACCESSED',     timestamp: '2026-04-25T08:31:10', unix_ts: 1777105870, ip: '192.168.1.5', metadata: { course_id: 'c001', course_title: 'Operaciones Portuarias Básicas' } },
-    { event_type: 'PPT_VIEWED',          timestamp: '2026-04-25T08:32:00', unix_ts: 1777105920, ip: '192.168.1.5', metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx' } },
-    { event_type: 'PPT_DOWNLOADED',      timestamp: '2026-04-25T08:33:20', unix_ts: 1777106000, ip: '192.168.1.5', metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx', version: 'v3.0' } },
-    { event_type: 'ZOOM_BUTTON_CLICKED', timestamp: '2026-04-25T09:00:45', unix_ts: 1777107645, ip: '192.168.1.5', metadata: { zoom_url: 'https://zoom.us/j/123456789', meeting_id: '123456789' } },
+    { event_type: 'LOGIN_SUCCESS',               timestamp: '2026-04-25T08:30:00', unix_ts: 1777105800, ip: '192.168.1.5',  metadata: { browser: 'Firefox 125', device: 'Laptop', os: 'macOS 14' } },
+    { event_type: 'COURSE_ACCESSED',             timestamp: '2026-04-25T08:31:10', unix_ts: 1777105870, ip: '192.168.1.5',  metadata: { course_id: 'c001', course_title: 'Operaciones Portuarias Básicas' } },
+    { event_type: 'PPT_VIEWED',                  timestamp: '2026-04-25T08:32:00', unix_ts: 1777105920, ip: '192.168.1.5',  metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx' } },
+    { event_type: 'PPT_DOWNLOADED',              timestamp: '2026-04-25T08:33:20', unix_ts: 1777106000, ip: '192.168.1.5',  metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx', version: 'v3.0' } },
+    { event_type: 'ZOOM_BUTTON_CLICKED',         timestamp: '2026-04-25T09:00:45', unix_ts: 1777107645, ip: '192.168.1.5',  metadata: { zoom_url: 'https://zoom.us/j/123456789', meeting_id: '123456789' } },
+    { event_type: 'LIVE_CLASS_ACCESS_ATTEMPTED', timestamp: '2026-04-25T09:00:46', unix_ts: 1777107646, ip: '192.168.1.5',  metadata: { meeting_id: '123456789' } },
+    { event_type: 'ZOOM_SESSION_JOINED',         timestamp: '2026-04-25T09:01:02', unix_ts: 1777107662, ip: '192.168.1.5',  metadata: { meeting_id: '123456789', participant: 'Roberto Silva Vega', host: 'Ing. Jorge Huamán Quispe' } },
+    { event_type: 'ZOOM_SESSION_LEFT',           timestamp: '2026-04-25T11:45:00', unix_ts: 1777117500, ip: '192.168.1.5',  metadata: { meeting_id: '123456789', duration_seconds: 9838, duration_display: '2h 43m 58s', early_exit: true } },
+    { event_type: 'EXAM_STARTED',                timestamp: '2026-04-25T11:47:30', unix_ts: 1777117650, ip: '192.168.1.5',  metadata: { attempt: 1, time_since_zoom_end_sec: 150 } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T11:49:15', unix_ts: 1777117755, ip: '192.168.1.5',  metadata: { question: 'q1', answer: 1, answer_text: 'APN (Autoridad Portuaria Nacional)' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T11:51:00', unix_ts: 1777117860, ip: '192.168.1.5',  metadata: { question: 'q2', answer: 0, answer_text: 'D.S. 024-2016-EM' } },
+    { event_type: 'EXAM_ANSWER_SAVED',           timestamp: '2026-04-25T11:53:20', unix_ts: 1777118000, ip: '192.168.1.5',  metadata: { question: 'q3', answer: 2, answer_text: 'Casco, chaleco reflectivo, botas de seguridad y guantes' } },
+    { event_type: 'SESSION_TIMEOUT',             timestamp: '2026-04-25T11:55:05', unix_ts: 1777118105, ip: '192.168.1.5',  metadata: { reason: 'inactividad', exam_in_progress: true, answers_saved: 3 } },
+  ],
+  // u004 — María Fernanda Cruz — solo ingresó, no completó PPT (4 eventos)
+  u004: [
+    { event_type: 'LOGIN_SUCCESS',   timestamp: '2026-04-25T10:15:22', unix_ts: 1777112122, ip: '190.40.55.77', metadata: { browser: 'Safari 17', device: 'iPhone 15', os: 'iOS 17' } },
+    { event_type: 'COURSE_ACCESSED', timestamp: '2026-04-25T10:15:58', unix_ts: 1777112158, ip: '190.40.55.77', metadata: { course_id: 'c001', course_title: 'Operaciones Portuarias Básicas' } },
+    { event_type: 'PPT_VIEWED',      timestamp: '2026-04-25T10:17:30', unix_ts: 1777112250, ip: '190.40.55.77', metadata: { file: 'Operaciones_Portuarias_Basicas_v3.pptx', version: 'v3.0' } },
+    { event_type: 'SESSION_ENDED',   timestamp: '2026-04-25T10:19:05', unix_ts: 1777112345, ip: '190.40.55.77', metadata: { reason: 'cierre_de_pestaña', last_step: 'ppt', ppt_downloaded: false } },
   ],
 };
 
