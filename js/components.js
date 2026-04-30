@@ -313,7 +313,7 @@ function eventTypeBadge(type) {
     ZOOM_BUTTON_CLICKED:         ['bg-cyan-100 text-cyan-700',    'Zoom Clic'],
     LIVE_CLASS_ACCESS_ATTEMPTED: ['bg-cyan-200 text-cyan-800',    'Clase Acceso'],
     EXAM_STARTED:                ['bg-amber-100 text-amber-700',  'Examen Inicio'],
-    EXAM_ANSWER_SAVED:           ['bg-amber-50 text-amber-600',   'Resp. Guardada'],
+    EXAM_ANSWER_SAVED:           ['bg-amber-100 text-amber-800',  'Resp. Guardada'],
     EXAM_SUBMITTED:              ['bg-orange-100 text-orange-700','Exam. Enviado'],
     EXAM_FINISHED:               ['bg-orange-200 text-orange-800','Exam. Finalizado'],
     EXAM_GRADED:                 ['bg-green-100 text-green-700',  'Exam. Calificado'],
@@ -322,6 +322,8 @@ function eventTypeBadge(type) {
     CERTIFICATE_ENABLED:         ['bg-yellow-100 text-yellow-700','Cert. Habilitado'],
     CERTIFICATE_GENERATED:       ['bg-yellow-200 text-yellow-800','Cert. Generado'],
     CERTIFICATE_DOWNLOADED:      ['bg-green-200 text-green-800',  'Cert. Descargado'],
+    SESSION_TIMEOUT:             ['bg-red-100 text-red-700',      'Sesión Expirada'],
+    SESSION_ENDED:               ['bg-slate-200 text-slate-700',  'Sesión Finalizada'],
   };
   const [cls, label] = map[type] || ['bg-slate-100 text-slate-600', type];
   return `<span class="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold ${cls}">${label}</span>`;
